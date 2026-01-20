@@ -264,9 +264,9 @@ jobs:
         run: cat dist-darwin/**/notarization-error.log || echo "No notarization-error.log found"
 
   linux:
-#    if: false
     needs: "create-release"
     runs-on: ubuntu-latest
+    container: electronuserland/builder:v22-arm64
     permissions:
       contents: write
     steps:
@@ -283,10 +283,10 @@ jobs:
         uses: samuelmeuli/action-electron-builder@v1.6.0
         with:
           # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
-          #release: ${{ startsWith(github.ref, 'refs/tags/v') }}
           release: true
+          # Explicitly target ARM64 architecture for Linux
+          args: --linux deb --arm64

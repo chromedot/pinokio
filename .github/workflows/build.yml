@@ -266,7 +266,7 @@ jobs:
   linux:
     needs: "create-release"
     runs-on: ubuntu-latest
-    container: electronuserland/builder:v22-arm64
+    container: electronuserland/builder:22
     permissions:
       contents: write
     steps:
